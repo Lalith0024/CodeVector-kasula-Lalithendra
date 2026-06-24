@@ -36,8 +36,16 @@ async function runSeed() {
       );
     `);
 
-    await pool.query(`CREATE INDEX IF NOT EXISTS idx_category_cursor ON products (category, created_at DESC, id DESC);`);
-    await pool.query(`CREATE INDEX IF NOT EXISTS idx_cursor ON products (created_at DESC, id DESC);`);
+    try {
+      await pool.query(`CREATE INDEX idx_category_cursor ON products (category, created_at DESC, id DESC);`);
+    } catch (e) {
+      if (e.code !== 'ER_DUP_KEYNAME') throw e;
+    }
+    try {
+      await pool.query(`CREATE INDEX idx_cursor ON products (created_at DESC, id DESC);`);
+    } catch (e) {
+      if (e.code !== 'ER_DUP_KEYNAME') throw e;
+    }
 
     await pool.query(`
       CREATE TABLE IF NOT EXISTS metadata (
