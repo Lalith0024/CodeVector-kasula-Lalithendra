@@ -113,7 +113,7 @@ router.get('/products', async (req, res) => {
       return res.status(400).json({ error: 'Invalid cursor' });
     }
     console.error('Error fetching products:', error);
-    res.status(500).json({ error: 'Internal server error' });
+    res.status(500).json({ error: error.message || 'Internal server error' });
   }
 });
 
