@@ -6,11 +6,13 @@ import ProductGrid from './components/ProductGrid';
 import Pagination from './components/Pagination';
 import { useProducts } from './hooks/useProducts';
 import { fetchCategories } from './api/products';
+import { OnboardingModal } from './components/OnboardingModal';
 import './App.css';
 
 export default function App() {
   const [categories, setCategories] = useState([]);
   const [searchQuery, setSearchQuery] = useState('');
+  const [showOnboarding, setShowOnboarding] = useState(false);
   
   const {
     products,
@@ -33,6 +35,13 @@ export default function App() {
       .catch(err => console.error('Failed to load categories:', err));
   }, []);
 
+  useEffect(() => {
+    const hasViewed = localStorage.getItem('codevector_onboarding_viewed');
+    if (!hasViewed) {
+      setShowOnboarding(true);
+    }
+  }, []);
+
   const handleCategorySelect = (cat) => {
     setSearchQuery('');
     setCategory(cat);
@@ -47,7 +56,11 @@ export default function App() {
 
   return (
     <div className="app-container">
-      <Header total={total} />
+      <OnboardingModal 
+        show={showOnboarding} 
+        onClose={() => setShowOnboarding(false)} 
+      />
+      <Header total={total} onOpenHelp={() => setShowOnboarding(true)} />
       
       <div className="toolbar">
         <div className="toolbar-left">

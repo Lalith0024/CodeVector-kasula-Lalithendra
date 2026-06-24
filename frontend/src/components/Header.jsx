@@ -1,7 +1,8 @@
 import { useState, useEffect } from 'react';
+import { HelpCircle } from 'lucide-react';
 import './Header.css';
 
-export default function Header({ total }) {
+export default function Header({ total, onOpenHelp }) {
   const [scrolled, setScrolled] = useState(false);
 
   useEffect(() => {
@@ -15,11 +16,16 @@ export default function Header({ total }) {
   return (
     <header className={`header ${scrolled ? 'scrolled' : ''}`}>
       <div className="header-wordmark">Catalog</div>
-      {total > 0 && (
-        <div className="header-total">
-          {total.toLocaleString()} products
-        </div>
-      )}
+      <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
+        {total > 0 && (
+          <div className="header-total">
+            {total.toLocaleString()} products
+          </div>
+        )}
+        <button onClick={onOpenHelp} className="header-help-btn" title="View Architecture Story">
+          <HelpCircle size={20} />
+        </button>
+      </div>
     </header>
   );
 }
