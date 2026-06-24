@@ -1,7 +1,8 @@
+import { memo } from 'react';
 import { formatRelative } from '../utils/time';
 import './ProductCard.css';
 
-export default function ProductCard({ product }) {
+const ProductCard = memo(function ProductCard({ product }) {
   return (
     <div className="product-card">
       <div className="product-card-header">
@@ -16,4 +17,6 @@ export default function ProductCard({ product }) {
       </div>
     </div>
   );
-}
+});
+
+export default ProductCard;

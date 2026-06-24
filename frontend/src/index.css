@@ -91,3 +91,18 @@ button {
   0%, 100% { opacity: 1; }
   50% { opacity: 0.5; }
 }
+
+/* Accessibility: Focus outlines */
+*:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+/* Fade transition utility */
+.fade-transition {
+  transition: opacity 0.2s ease-in-out;
+}
+
+.fade-out {
+  opacity: 0.5;
+}

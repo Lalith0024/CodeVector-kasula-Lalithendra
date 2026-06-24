@@ -18,6 +18,9 @@
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   cursor: pointer;
   box-shadow: var(--shadow-sm);
+  display: flex;
+  align-items: center;
+  gap: 8px;
 }
 
 .pagination-btn:hover:not(:disabled) {
@@ -29,18 +32,39 @@
 }
 
 .pagination-btn:disabled {
-  opacity: 0.4;
+  opacity: 0.5;
   cursor: not-allowed;
   transform: none;
   box-shadow: none;
 }
 
+.btn-spinner {
+  width: 14px;
+  height: 14px;
+  border: 2px solid var(--border);
+  border-top-color: currentColor;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+.pagination-info {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+}
+
 .pagination-page {
   font-size: 0.95rem;
-  color: var(--text-secondary);
-  font-weight: 500;
+  color: var(--text-primary);
+  font-weight: 600;
   background: var(--surface-elevated);
   padding: 6px 16px;
   border-radius: 9999px;
   border: 1px solid var(--border);
+}
+
+.pagination-range {
+  font-size: 0.8rem;
+  color: var(--text-secondary);
 }

@@ -26,12 +26,21 @@
 }
 
 .grid-message {
-  padding: 48px;
+  padding: 64px 24px;
   text-align: center;
   background: var(--surface);
   border: 1px dashed var(--border);
-  border-radius: 8px;
+  border-radius: 12px;
   color: var(--text-secondary);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+}
+
+.grid-message svg {
+  color: var(--text-muted);
+  margin-bottom: 8px;
 }
 
 .grid-message.error {
@@ -40,19 +49,34 @@
   background: #FEF2F2;
 }
 
-.retry-btn {
-  margin-top: 12px;
-  background: var(--surface);
-  border: 1px solid #DC2626;
+.grid-message.error svg {
   color: #DC2626;
-  padding: 6px 16px;
-  border-radius: 4px;
+}
+
+.action-btn {
+  margin-top: 8px;
+  background: var(--surface-elevated);
+  border: 1px solid var(--border);
+  color: var(--text-primary);
+  padding: 8px 24px;
+  border-radius: 8px;
   font-weight: 500;
-  transition: background 0.2s;
+  transition: all 0.2s;
   cursor: pointer;
 }
 
-.retry-btn:hover {
+.action-btn:hover {
+  background: var(--surface);
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+.action-btn.error-btn {
+  border-color: #DC2626;
+  color: #DC2626;
+}
+
+.action-btn.error-btn:hover {
   background: #FEE2E2;
 }
 

@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { HelpCircle } from 'lucide-react';
+import { Mail } from 'lucide-react';
 import './Header.css';
 
 export default function Header({ total, onOpenHelp }) {
@@ -15,16 +15,27 @@ export default function Header({ total, onOpenHelp }) {
 
   return (
     <header className={`header ${scrolled ? 'scrolled' : ''}`}>
-      <div className="header-wordmark">Catalog</div>
-      <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
+      <div className="header-left">
+        <div className="header-wordmark">InventorySight</div>
+        <nav className="header-nav">
+          <button className="nav-link active">Dashboard</button>
+          <button className="nav-link" onClick={onOpenHelp}>How It Works</button>
+        </nav>
+      </div>
+      
+      <div className="header-right">
         {total > 0 && (
           <div className="header-total">
             {total.toLocaleString()} products
           </div>
         )}
-        <button onClick={onOpenHelp} className="header-help-btn" title="View Architecture Story">
-          <HelpCircle size={20} />
-        </button>
+        <a 
+          href="mailto:kasula.Lalithendra2024@nst.rishihood.edu.in" 
+          className="contact-btn"
+        >
+          <Mail size={16} />
+          Contact Candidate
+        </a>
       </div>
     </header>
   );

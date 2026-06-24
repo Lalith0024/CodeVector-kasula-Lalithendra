@@ -23,8 +23,8 @@
 }
 
 .product-card:hover {
-  box-shadow: var(--shadow-md), var(--shadow-glow);
-  transform: translateY(-4px);
+  box-shadow: var(--shadow-sm);
+  transform: translateY(-2px);
   border-color: var(--border-hover);
   background: var(--surface-elevated);
 }

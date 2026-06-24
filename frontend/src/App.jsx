@@ -42,6 +42,11 @@ export default function App() {
     }
   }, []);
 
+  // Scroll to top when page or category changes
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }, [currentPage, selectedCategory]);
+
   const handleCategorySelect = (cat) => {
     setSearchQuery('');
     setCategory(cat);
@@ -81,6 +86,7 @@ export default function App() {
           loading={loading} 
           error={error} 
           onRetry={reset}
+          onClearFilter={() => handleCategorySelect(null)}
         />
         
         {!error && products.length > 0 && (
@@ -91,6 +97,7 @@ export default function App() {
             onNext={loadNext}
             onPrevious={loadPrevious}
             disabled={loading}
+            total={total}
           />
         )}
       </main>
