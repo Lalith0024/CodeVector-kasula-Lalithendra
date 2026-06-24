@@ -1,21 +1,47 @@
-:root {
-  --bg: #F8F9FA;
-  --surface: #FFFFFF;
-  --border: #E2E5EA;
-  --text-primary: #0F1117;
-  --text-secondary: #5A6275;
-  --accent: #2563EB;
-  --accent-hover: #1D4ED8;
-  --tag-bg: #EFF6FF;
-  --tag-text: #1D4ED8;
-  --price: #059669;
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
 
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+:root {
+  /* Core Dark Mode Colors */
+  --bg: #0A0A0B;
+  --surface: #111113;
+  --surface-elevated: #1A1A1E;
+  
+  /* Accents - Neon/Electric */
+  --accent: #3B82F6;
+  --accent-hover: #60A5FA;
+  --accent-glow: rgba(59, 130, 246, 0.4);
+  
+  --price: #10B981;
+  --price-glow: rgba(16, 185, 129, 0.2);
+  
+  /* Text */
+  --text-primary: #FAFAFA;
+  --text-secondary: #A1A1AA;
+  --text-muted: #52525B;
+  
+  /* Borders */
+  --border: #27272A;
+  --border-hover: #3F3F46;
+  
+  /* Tags */
+  --tag-bg: rgba(59, 130, 246, 0.1);
+  --tag-text: #60A5FA;
+  --tag-border: rgba(59, 130, 246, 0.2);
+
+  /* Effects */
+  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.4);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.5), 0 2px 4px -1px rgba(0, 0, 0, 0.3);
+  --shadow-glow: 0 0 20px -5px var(--accent-glow);
+  --glass-bg: rgba(10, 10, 11, 0.7);
+  --glass-border: rgba(255, 255, 255, 0.05);
+
+  /* Typography */
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
   font-size: 16px;
   line-height: 1.5;
   font-weight: 400;
 
-  color-scheme: light;
+  color-scheme: dark;
   background-color: var(--bg);
   color: var(--text-primary);
 }
@@ -29,24 +55,39 @@ body {
   padding: 0;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background-image: 
+    radial-gradient(circle at 15% 50%, rgba(59, 130, 246, 0.05), transparent 25%),
+    radial-gradient(circle at 85% 30%, rgba(16, 185, 129, 0.03), transparent 25%);
+  background-attachment: fixed;
 }
 
 ::-webkit-scrollbar {
-  width: 6px;
-  height: 6px;
+  width: 8px;
+  height: 8px;
 }
 ::-webkit-scrollbar-track {
-  background: transparent;
+  background: var(--bg);
 }
 ::-webkit-scrollbar-thumb {
   background: var(--border);
   border-radius: 4px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: var(--text-secondary);
+  background: var(--text-muted);
 }
 
 button {
   font-family: inherit;
   cursor: pointer;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.5; }
 }

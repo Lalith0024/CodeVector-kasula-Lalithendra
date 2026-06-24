@@ -1,22 +1,42 @@
 .product-card {
   background: var(--surface);
   border: 1px solid var(--border);
-  border-radius: 8px;
-  padding: 16px;
+  border-radius: 12px;
+  padding: 20px;
   display: flex;
   flex-direction: column;
-  transition: box-shadow 0.15s ease, transform 0.15s ease;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  overflow: hidden;
+}
+
+.product-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, var(--accent), #10B981);
+  opacity: 0;
+  transition: opacity 0.3s ease;
 }
 
 .product-card:hover {
-  box-shadow: 0 4px 16px rgba(0,0,0,0.07);
-  transform: translateY(-1px);
+  box-shadow: var(--shadow-md), var(--shadow-glow);
+  transform: translateY(-4px);
+  border-color: var(--border-hover);
+  background: var(--surface-elevated);
+}
+
+.product-card:hover::before {
+  opacity: 1;
 }
 
 .product-card-header {
   display: flex;
-  justify-content: flex-end;
-  margin-bottom: 12px;
+  justify-content: flex-start;
+  margin-bottom: 16px;
 }
 
 .product-tag {
@@ -24,17 +44,18 @@
   color: var(--tag-text);
   font-size: 0.75rem;
   font-weight: 600;
-  padding: 4px 8px;
-  border-radius: 9999px;
+  padding: 4px 10px;
+  border-radius: 6px;
   text-transform: uppercase;
   letter-spacing: 0.05em;
+  border: 1px solid var(--tag-border);
 }
 
 .product-name {
   color: var(--text-primary);
-  font-weight: 600;
-  font-size: 1rem;
-  line-height: 1.4;
+  font-weight: 500;
+  font-size: 1.125rem;
+  line-height: 1.5;
   margin-bottom: 24px;
   flex: 1;
   display: -webkit-box;
@@ -47,17 +68,19 @@
 .product-card-footer {
   display: flex;
   justify-content: space-between;
-  align-items: flex-end;
+  align-items: center;
+  margin-top: auto;
 }
 
 .product-price {
   color: var(--price);
   font-family: 'SF Mono', 'Fira Code', 'Cascadia Code', monospace;
-  font-weight: 600;
-  font-size: 1.125rem;
+  font-weight: 700;
+  font-size: 1.25rem;
+  text-shadow: 0 0 10px var(--price-glow);
 }
 
 .product-time {
-  color: var(--text-secondary);
-  font-size: 0.75rem;
+  color: var(--text-muted);
+  font-size: 0.8rem;
 }

@@ -2,35 +2,46 @@
   position: sticky;
   top: 0;
   z-index: 20;
-  background: var(--surface);
-  height: 64px;
-  padding: 0 24px;
+  background: var(--glass-bg);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  height: 72px;
+  padding: 0 32px;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  border-bottom: 1px solid var(--border);
-  transition: box-shadow 0.2s ease;
+  border-bottom: 1px solid var(--glass-border);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .header.scrolled {
-  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+  box-shadow: var(--shadow-md);
+  background: rgba(10, 10, 11, 0.85);
 }
 
 .header-wordmark {
   font-weight: 700;
-  font-size: 1.25rem;
+  font-size: 1.5rem;
   color: var(--text-primary);
-  letter-spacing: -0.02em;
+  letter-spacing: -0.03em;
+  background: linear-gradient(to right, #FAFAFA, #A1A1AA);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
 
 .header-total {
   font-size: 0.875rem;
-  color: var(--text-secondary);
+  font-weight: 500;
+  color: var(--accent);
+  background: var(--tag-bg);
+  padding: 4px 12px;
+  border-radius: 9999px;
+  border: 1px solid var(--tag-border);
 }
 
 @media (max-width: 768px) {
   .header {
-    height: 56px;
+    height: 64px;
     padding: 0 16px;
   }
 }
