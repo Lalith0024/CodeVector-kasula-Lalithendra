@@ -1,122 +1,86 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from './assets/vite.svg'
-import heroImg from './assets/hero.png'
-import './App.css'
+import { useState, useEffect, useMemo } from 'react';
+import Header from './components/Header';
+import CategoryFilter from './components/CategoryFilter';
+import SearchBar from './components/SearchBar';
+import ProductGrid from './components/ProductGrid';
+import Pagination from './components/Pagination';
+import { useProducts } from './hooks/useProducts';
+import { fetchCategories } from './api/products';
+import './App.css';
 
-function App() {
-  const [count, setCount] = useState(0)
+export default function App() {
+  const [categories, setCategories] = useState([]);
+  const [searchQuery, setSearchQuery] = useState('');
+  
+  const {
+    products,
+    nextCursor,
+    loading,
+    error,
+    total,
+    selectedCategory,
+    cursorHistory,
+    currentPage,
+    loadNext,
+    loadPrevious,
+    setCategory,
+    reset
+  } = useProducts();
+
+  useEffect(() => {
+    fetchCategories()
+      .then(setCategories)
+      .catch(err => console.error('Failed to load categories:', err));
+  }, []);
+
+  const handleCategorySelect = (cat) => {
+    setSearchQuery('');
+    setCategory(cat);
+  };
+
+  // Client-side filter for current page's data
+  const filteredProducts = useMemo(() => {
+    if (!searchQuery.trim()) return products;
+    const query = searchQuery.toLowerCase();
+    return products.filter(p => p.name.toLowerCase().includes(query));
+  }, [products, searchQuery]);
 
   return (
-    <>
-      <section id="center">
-        <div className="hero">
-          <img src={heroImg} className="base" width="170" height="179" alt="" />
-          <img src={reactLogo} className="framework" alt="React logo" />
-          <img src={viteLogo} className="vite" alt="Vite logo" />
+    <div className="app-container">
+      <Header total={total} />
+      
+      <div className="toolbar">
+        <div className="toolbar-left">
+          <CategoryFilter 
+            categories={categories}
+            selected={selectedCategory}
+            onSelect={handleCategorySelect}
+          />
         </div>
-        <div>
-          <h1>Get started</h1>
-          <p>
-            Edit <code>src/App.jsx</code> and save to test <code>HMR</code>
-          </p>
+        <div className="toolbar-right">
+          <SearchBar value={searchQuery} onChange={setSearchQuery} />
         </div>
-        <button
-          type="button"
-          className="counter"
-          onClick={() => setCount((count) => count + 1)}
-        >
-          Count is {count}
-        </button>
-      </section>
+      </div>
 
-      <div className="ticks"></div>
-
-      <section id="next-steps">
-        <div id="docs">
-          <svg className="icon" role="presentation" aria-hidden="true">
-            <use href="/icons.svg#documentation-icon"></use>
-          </svg>
-          <h2>Documentation</h2>
-          <p>Your questions, answered</p>
-          <ul>
-            <li>
-              <a href="https://vite.dev/" target="_blank">
-                <img className="logo" src={viteLogo} alt="" />
-                Explore Vite
-              </a>
-            </li>
-            <li>
-              <a href="https://react.dev/" target="_blank">
-                <img className="button-icon" src={reactLogo} alt="" />
-                Learn more
-              </a>
-            </li>
-          </ul>
-        </div>
-        <div id="social">
-          <svg className="icon" role="presentation" aria-hidden="true">
-            <use href="/icons.svg#social-icon"></use>
-          </svg>
-          <h2>Connect with us</h2>
-          <p>Join the Vite community</p>
-          <ul>
-            <li>
-              <a href="https://github.com/vitejs/vite" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#github-icon"></use>
-                </svg>
-                GitHub
-              </a>
-            </li>
-            <li>
-              <a href="https://chat.vite.dev/" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#discord-icon"></use>
-                </svg>
-                Discord
-              </a>
-            </li>
-            <li>
-              <a href="https://x.com/vite_js" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#x-icon"></use>
-                </svg>
-                X.com
-              </a>
-            </li>
-            <li>
-              <a href="https://bsky.app/profile/vite.dev" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#bluesky-icon"></use>
-                </svg>
-                Bluesky
-              </a>
-            </li>
-          </ul>
-        </div>
-      </section>
-
-      <div className="ticks"></div>
-      <section id="spacer"></section>
-    </>
-  )
+      <main className="main-content">
+        <ProductGrid 
+          products={filteredProducts} 
+          loading={loading} 
+          error={error} 
+          onRetry={reset}
+        />
+        
+        {!error && products.length > 0 && (
+          <Pagination 
+            currentPage={currentPage}
+            hasNext={!!nextCursor}
+            hasPrevious={cursorHistory.length > 0}
+            onNext={loadNext}
+            onPrevious={loadPrevious}
+            disabled={loading}
+          />
+        )}
+      </main>
+    </div>
+  );
 }
-
-export default App
