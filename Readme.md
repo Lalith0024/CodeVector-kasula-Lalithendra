@@ -4,8 +4,8 @@
 This project is a high-performance paginated product catalog API designed to handle over 200,000 products correctly. The core constraint addressed is stable cursor-based pagination. Unlike traditional OFFSET pagination, which breaks under concurrent writes (causing duplicate or skipped items), the cursor approach ensures that products maintain stable positions while the data changes.
 
 ## Live URLs
-- **Backend**: [(Fill in after deployment)](https://codevector-kasula-lalithendra.onrender.com)
-- **Frontend**: [(Fill in after deployment)](https://code-vector-kasula-lalithendra.vercel.app/)
+- **Backend**: [(Render Link)](https://codevector-kasula-lalithendra.onrender.com)
+- **Frontend**: [(Vercel Link)](https://code-vector-kasula-lalithendra.vercel.app/)
 
 ## Tech Choices and Why
 
